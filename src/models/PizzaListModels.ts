@@ -4,8 +4,10 @@ export interface PizzaProps {
     readonly price: string;
     readonly description: string;
     readonly img: string;
+    readonly  clickHandler?: (title: string, count: number)=>void
 }
 
 export interface PizzaListProps{
     readonly pizzaList: PizzaProps[];
+    readonly clickHandler?: (title: string, count: number)=>void
 }

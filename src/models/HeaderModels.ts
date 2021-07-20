@@ -1,3 +1,3 @@
 export interface HeaderProps{
-    readonly title: string;
+    readonly title: string; 
 }

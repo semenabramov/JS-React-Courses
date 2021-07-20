@@ -3,7 +3,7 @@ import { Text, ScrollView, FlatList } from 'react-native'
 import { PizzaListProps, PizzaProps } from '../../models/PizzaListModels';
 import Pizza from './Pizza/Pizza';
 
-const PizzaList = ({ pizzaList }: PizzaListProps) => {
+const PizzaList = ({ pizzaList, clickHandler }: PizzaListProps ) => {
     
 
     const renderItem = useCallback((item) => (
@@ -14,8 +14,9 @@ const PizzaList = ({ pizzaList }: PizzaListProps) => {
             img={item.item.img}
             price={item.item.price}
             id={item.item.id}
+            clickHandler={clickHandler}
         />
-    ), []);
+    ), [clickHandler]);
     
     if (!pizzaList || !pizzaList.length) {
         return null;
