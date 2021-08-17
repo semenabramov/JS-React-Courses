@@ -26,20 +26,46 @@ function LoginScreen({navigation}: any) {
     const [login, setData] = useState('');
     const [password, setPassword] = useState('');
 
+    const [errors, setErrors] = useState(['']);
+
     const allUsers = useSelector((state)=>state.users.users)
     const idNewUser = (allUsers.length + 1)
 
+    //let errors  = ['']
+    let counter = 0;
+    let er = ['']
 
     const clickHandler = () =>{
+        er = []
+        console.log(errors)
+        counter = 0;
+
         const data = {
             id: idNewUser,
             name: login,
             password: password,
+            img: [],
         }
-        //console.log(allUsers)
-        dispatch(createAccount(data))
+        let flag = true;
+        allUsers.forEach(function(item: any){
+            //console.log(item)
+            //console.log(data)
+            if((item.name == data.name)){
+                flag = false;
+                //console.log('The user already exists')
+            }
+        })
+        if(flag){
+            dispatch(createAccount(data))
+            er = ['Successfully']
+        }else{
+            er = [...er,'The user already exists'] 
+            console.log(errors)
+        }
+        setErrors(er)
     }
-
+    
+    
     
     
 
@@ -81,14 +107,26 @@ function LoginScreen({navigation}: any) {
                 </TouchableOpacity>
 
                 
+                
             </View>
-
+            
+            <View style={styles.Errors}>
+                <Text style={styles.ErrorsText}>{errors[0]}</Text>
+            </View>
+            
 
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    Errors:{
+        
+    },
+    ErrorsText:{
+        color: 'red',
+        margin: 10,
+    },
     LoginButton: {
         backgroundColor: 'orange',
         width: '80%',

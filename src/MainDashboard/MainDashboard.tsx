@@ -145,7 +145,7 @@ const MainDashboard = ({ navigation }: any) => {
 
             </ScrollView>
             <View style={styles.Fotter}>
-                <TouchableOpacity onPress={addPhoto}  >
+                <TouchableOpacity onPress={() => navigation.navigate('AddPhoto')}  >
                     <Image style={styles.AddPhoto}
                         source={{ uri: 'https://w7.pngwing.com/pngs/272/936/png-transparent-computer-icons-desktop-plus-and-minus-signs-restart-miscellaneous-sign-internet.png' }} />
 

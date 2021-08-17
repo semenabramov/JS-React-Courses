@@ -5,7 +5,7 @@ const initalState = {
     //id: Number,
     //name: String,
     //password: String,
-    activeld: 1,
+    activeld: 0,
     users: [
         {
             id: 1,
