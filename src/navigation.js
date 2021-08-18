@@ -8,6 +8,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useSelector } from 'react-redux';
 import AddPhoto from './AddPhoto/AddPhoto';
+import EditPhoto from './EditPhoto/EditPhoto';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -35,6 +37,7 @@ export default function MainStack() {
           <Stack.Screen name="Home" component={MainDashboard} />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="AddPhoto" component={AddPhoto} />
+          <Stack.Screen name="EditPhoto" component={EditPhoto} />
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -1,4 +1,4 @@
-import  { CREATE_ACCOUNT, LOGIN, ADD_IMG, EXIT} from "./types"
+import  { CREATE_ACCOUNT, LOGIN, ADD_IMG, EXIT, EDIT_IMG, DELETE_IMG} from "./types"
 
 export function createAccount(user){
     return{
@@ -20,6 +20,21 @@ export function addImg(user){
         payload: user
     }
 }
+
+export function deleteImg(user){
+    return{
+        type: DELETE_IMG,
+        payload: user
+    }
+}
+
+export function editImg(user){
+    return{
+        type: EDIT_IMG,
+        payload: user
+    }
+}
+
 
 export function exit(){
     return{
