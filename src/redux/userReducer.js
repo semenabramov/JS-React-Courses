@@ -5,19 +5,21 @@ const initalState = {
     //id: Number,
     //name: String,
     //password: String,
-    activeld: 0,
+    activeld: 1,
     users: [
         {
             id: 1,
             name: 'Simon',
             password: '123',
-            img: []
+            img: [],
+            comment: []
         },
         {
             id: 2,
             name: 'Alex',
             password: '123',
-            img: []
+            img: [],
+            comment: [],
         }],
     //posts: [],
 }

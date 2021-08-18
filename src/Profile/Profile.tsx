@@ -65,11 +65,13 @@ function Profile({navigation}: any) {
                             <Text style={styles.UserName}>Pthoto by: {userNow.name}</Text>
                             <Image style={styles.MainPhotos}
                                 source={{ uri: item }} />
+                            <Text style={styles.UserName}>{userNow.comment[counter - 1]}</Text>
                         </View>
                     )
                    
                 })
             }
+            
 
             </ScrollView>
 

@@ -29,6 +29,9 @@ function AddPhoto({navigation}: any) {
     const stateUsers = useSelector((state) => state.users)
     const dispatch = useDispatch();
 
+    const [preImage, setPreImage] = useState('')
+    const [comment, setСomment] = useState('');
+
     const allUsers = stateUsers.users
     const activeldUsers = stateUsers.activeld
 
@@ -42,14 +45,17 @@ function AddPhoto({navigation}: any) {
             includeBase64: true,
         },
         (image) => {
-            console.log(image.assets[0].uri)
+            if(!image.didCancel){
+            //console.log(image.assets[0].uri)
             const data = {
                 id: activeldUsers,
                 name: userNow.name,
                 password: userNow.password,
                 img: [...userNow.img, image.assets[0].uri],
             }
-            dispatch(addImg(data))
+            //dispatch(addImg(data))
+            setPreImage(image.assets[0].uri)
+        }
         }
     )
     const addPhotoFromCamera = () => launchCamera(
@@ -61,10 +67,23 @@ function AddPhoto({navigation}: any) {
             saveToPhotos: true,
         },
         (image) => {
-            //console.log(image)
-
+            if(!image.didCancel){
+            console.log(image)
+            setPreImage(image.assets[0].uri)
+            }
         }
     )
+    const addPhotoToAccount = () =>{
+        const data = {
+            id: activeldUsers,
+            name: userNow.name,
+            password: userNow.password,
+            img: [...userNow.img, preImage],
+            comment: [...userNow.comment, comment],
+        }
+        console.log(data)
+        dispatch(addImg(data))
+    }
     
     
    
@@ -73,17 +92,58 @@ function AddPhoto({navigation}: any) {
             <View style={styles.LogoContainer}>
                 <Text style={styles.LogoText}>NEWiNSTAGRAM</Text>
             </View>
-           
-            <TouchableOpacity onPress={addPhoto}  >
-                    <Image style={styles.AddPhoto}
-                        source={{ uri: 'https://w7.pngwing.com/pngs/272/936/png-transparent-computer-icons-desktop-plus-and-minus-signs-restart-miscellaneous-sign-internet.png' }} />
+            
+            <Image style={styles.MainPhotos} source={(preImage != '') ? { uri: preImage } : { uri: 'https://elaba.ru/assets/img/sertificate.png' } } />
+            <TextInput
+                    style={styles.Input}
+                    placeholder="Enter comment"
+                    onChangeText={comment=> setСomment(comment)}
+                />
 
+            <View style={{display: 'flex', flexDirection: 'row', width: '100%', backgroundColor: 'red'}}>
+                <TouchableOpacity style={styles.Tab} onPress={addPhoto}  >
+                    <View >
+                        <Text style={styles.TabText}>Add from galery</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.Tab} onPress={addPhotoFromCamera}  >
+                    <View >
+                        <Text style={styles.TabText}>Take a photo</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity style={styles.UploadPhoto} onPress={addPhotoToAccount} disabled={(preImage == '')} >
+                    <View >
+                        <Text style={{textAlign: 'center',marginTop: 14}}>Upload a photo</Text>
+                    </View>
                 </TouchableOpacity>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    UploadPhoto:{
+        width: '100%',
+        backgroundColor: '#dedede',
+        borderTopWidth: 2,
+        borderColor: '#C4C4C4',
+        height: 50,
+    },
+    Tab:{
+        backgroundColor: '#dedede',
+        width: '50%',
+        //borderRadius: 5,
+        borderLeftWidth: 2,
+        borderColor: '#C4C4C4',
+        height: 100,
+        margin: 0,
+        
+    },
+    TabText:{
+        textAlign: 'center',
+        marginTop: '20%', 
+    },
     UserName: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -98,7 +158,7 @@ const styles = StyleSheet.create({
     MainPhotos: {
         width: '100%',
         height: 300,
-
+        
     },
     GoToProfile: {
         width: 40,
@@ -164,8 +224,8 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         backgroundColor: '#efefef',
         borderRadius: 5,
-        width: '80%',
-        margin: 10,
+        width: '100%',
+        margin: 0,
 
     }
 });

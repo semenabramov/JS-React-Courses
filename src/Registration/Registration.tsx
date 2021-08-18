@@ -45,6 +45,7 @@ function LoginScreen({navigation}: any) {
             name: login,
             password: password,
             img: [],
+            comment: [],
         }
         let flag = true;
         allUsers.forEach(function(item: any){
@@ -77,14 +78,14 @@ function LoginScreen({navigation}: any) {
 
 
             <View style={styles.LoginContainer}>
-                <Text>Login</Text>
+                <Text >Login</Text>
                 <TextInput
                     style={styles.Input}
                     placeholder="Enter login"
                     onChangeText={login => setData(login)}
                 />
 
-                <Text>Password</Text>
+                <Text >Password</Text>
                 <TextInput
                     style={styles.Input}
                     placeholder="Enter password"
@@ -136,7 +137,8 @@ const styles = StyleSheet.create({
         marginTop: 16,
     },
     LoginButtonText: {
-        fontSize: 16
+        fontSize: 16,
+        
     },
     LoginContainer: {
         backgroundColor: '#ffffff',
