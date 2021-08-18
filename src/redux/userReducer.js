@@ -1,4 +1,4 @@
-import  { CREATE_ACCOUNT, LOGIN, ADD_IMG, EXIT } from "./types"
+import  { CREATE_ACCOUNT, LOGIN, ADD_IMG, EXIT, EDIT_IMG, DELETE_IMG } from "./types"
 
 
 const initalState = {
@@ -11,13 +11,15 @@ const initalState = {
             id: 1,
             name: 'Simon',
             password: '123',
-            img: []
+            img: [],
+            comment: []
         },
         {
             id: 2,
             name: 'Alex',
             password: '123',
-            img: []
+            img: [],
+            comment: [],
         }],
     //posts: [],
 }
@@ -32,6 +34,9 @@ export const userReducer = (state = initalState, action) =>{
             return {...state, users: [...state.users.slice(0,action.payload.id-1), action.payload, ...state.users.slice(action.payload.id)]}
         case EXIT:
             return {...state, activeld: 0 }
+        case DELETE_IMG:
+            return {...state, users: [...state.users.slice(0,action.payload.id-1), action.payload, ...state.users.slice(action.payload.id)]}    
+        
         default: return state
     }
 }

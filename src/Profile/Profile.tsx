@@ -1,5 +1,5 @@
 import { Formik } from 'formik';
-import React, { useCallback, useState } from 'react';
+import React, { isValidElement, useCallback, useState } from 'react';
 import {
     Text,
     TextInput,
@@ -41,7 +41,7 @@ function Profile({navigation}: any) {
     const clickHandler = () =>{
         dispatch(exit())
     }
-    
+    console.log()
     
     let counter = 0;
     return (
@@ -59,17 +59,27 @@ function Profile({navigation}: any) {
                     console.log(item)
                     console.log(userNow.img.length - counter)
                     counter = counter + 1;
+                    let toRoute = {idImg: counter}
+                    console.log(toRoute)
                     return (
                         
                         < View style={styles.onePicture} key={userNow.img.length - counter} >
-                            <Text style={styles.UserName}>Pthoto by: {userNow.name}</Text>
+                            <View style={{flexDirection: 'row'}}>
+                                <TouchableOpacity onPress={(counter) => navigation.navigate('EditPhoto', toRoute)}>
+                                    <Image style={{width: 40, height: 40, margin: 8}} source={{ uri: 'https://static.vecteezy.com/system/resources/previews/000/330/430/original/vector-pencil-line-black-icon.jpg'}} />
+                                </TouchableOpacity>   
+                                <Text style={styles.UserName}>Pthoto by: {userNow.name} - {counter}</Text>
+                            </View>
+                            
                             <Image style={styles.MainPhotos}
                                 source={{ uri: item }} />
+                            <Text style={styles.UserName}>{userNow.comment[counter - 1]}</Text>
                         </View>
                     )
                    
                 })
             }
+            
 
             </ScrollView>
 

@@ -34,59 +34,6 @@ const MainDashboard = ({ navigation }: any) => {
     let userNow = allUsers[activeldUsers - 1]
 
 
-
-
-    /* 
-    allUsers.forEach(function(item: any){
-
-        if(item.id == activeldUsers){
-            console.log('TRUE')
-            userNow = item
-        }else{
-            console.log('FALSE')
-        }
-    })
-    */
-
-
-    const addPhoto = () => launchImageLibrary(
-        {
-            mediaType: 'photo',
-            maxWidth: 300,
-            maxHeight: 300,
-            includeBase64: true,
-        },
-        (image) => {
-            console.log(image.assets[0].uri)
-            const data = {
-                id: activeldUsers,
-                name: userNow.name,
-                password: userNow.password,
-                img: [...userNow.img, image.assets[0].uri],
-            }
-            dispatch(addImg(data))
-        }
-    )
-    const addPhotoFromCamera = () => launchCamera(
-        {
-            mediaType: 'photo',
-            maxWidth: 300,
-            maxHeight: 300,
-            includeBase64: false,
-            saveToPhotos: true,
-        },
-        (image) => {
-            console.log(image)
-
-        }
-    )
-
-    /*
-    <TouchableOpacity onPress={addPhotoFromCamera}  >
-                    <Text >launchCamera</Text>
-                </TouchableOpacity>
-                */
-
     return (
         <SafeAreaView style={styles.MainArea}>
 
@@ -114,6 +61,7 @@ const MainDashboard = ({ navigation }: any) => {
                             return (
 
                                 < View style={styles.onePicture} key={user.id * 100 + user.img.length - counter} >
+                                    
                                     <Text style={styles.UserName}>Pthoto by: {user.name}</Text>
                                     <Image style={styles.MainPhotos}
                                         source={{ uri: item }} />
@@ -126,26 +74,12 @@ const MainDashboard = ({ navigation }: any) => {
                 })
             }
 
-                <View style={styles.onePicture}>
-                    <Text style={styles.UserName}>Pthoto by: {userNow.name}</Text>
-                    <Image style={styles.MainPhotos}
-                        source={{ uri: userNow.img[0] }} />
-                </View>
-                <View style={styles.onePicture}>
-                    <Text style={styles.UserName}>Pthoto by: {userNow.name}</Text>
-                    <Image style={styles.MainPhotos}
-                        source={{ uri: "/" }} />
-                </View>
-                <View style={styles.onePicture}>
-                    <Text style={styles.UserName}>Pthoto by: {userNow.name}</Text>
-                    <Image style={styles.MainPhotos}
-                        source={{ uri: "/" }} />
-                </View>
+                
 
 
             </ScrollView>
             <View style={styles.Fotter}>
-                <TouchableOpacity onPress={addPhoto}  >
+                <TouchableOpacity onPress={() => navigation.navigate('AddPhoto')}  >
                     <Image style={styles.AddPhoto}
                         source={{ uri: 'https://w7.pngwing.com/pngs/272/936/png-transparent-computer-icons-desktop-plus-and-minus-signs-restart-miscellaneous-sign-internet.png' }} />
 
@@ -193,7 +127,6 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: 'black',
         marginRight: 70,
-
     },
     ScrollArea: {
         //backgroundColor: 'red',
@@ -204,6 +137,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
+        
     },
     MainArea: {
         backgroundColor: '#f6f6f6',

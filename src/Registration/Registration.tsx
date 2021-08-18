@@ -26,20 +26,47 @@ function LoginScreen({navigation}: any) {
     const [login, setData] = useState('');
     const [password, setPassword] = useState('');
 
+    const [errors, setErrors] = useState(['']);
+
     const allUsers = useSelector((state)=>state.users.users)
     const idNewUser = (allUsers.length + 1)
 
+    //let errors  = ['']
+    let counter = 0;
+    let er = ['']
 
     const clickHandler = () =>{
+        er = []
+        console.log(errors)
+        counter = 0;
+
         const data = {
             id: idNewUser,
             name: login,
             password: password,
+            img: [],
+            comment: [],
         }
-        //console.log(allUsers)
-        dispatch(createAccount(data))
+        let flag = true;
+        allUsers.forEach(function(item: any){
+            //console.log(item)
+            //console.log(data)
+            if((item.name == data.name)){
+                flag = false;
+                //console.log('The user already exists')
+            }
+        })
+        if(flag){
+            dispatch(createAccount(data))
+            er = ['Successfully']
+        }else{
+            er = [...er,'The user already exists'] 
+            console.log(errors)
+        }
+        setErrors(er)
     }
-
+    
+    
     
     
 
@@ -51,14 +78,14 @@ function LoginScreen({navigation}: any) {
 
 
             <View style={styles.LoginContainer}>
-                <Text>Login</Text>
+                <Text >Login</Text>
                 <TextInput
                     style={styles.Input}
                     placeholder="Enter login"
                     onChangeText={login => setData(login)}
                 />
 
-                <Text>Password</Text>
+                <Text >Password</Text>
                 <TextInput
                     style={styles.Input}
                     placeholder="Enter password"
@@ -81,14 +108,26 @@ function LoginScreen({navigation}: any) {
                 </TouchableOpacity>
 
                 
+                
             </View>
-
+            
+            <View style={styles.Errors}>
+                <Text style={styles.ErrorsText}>{errors[0]}</Text>
+            </View>
+            
 
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    Errors:{
+        
+    },
+    ErrorsText:{
+        color: 'red',
+        margin: 10,
+    },
     LoginButton: {
         backgroundColor: 'orange',
         width: '80%',
@@ -98,7 +137,8 @@ const styles = StyleSheet.create({
         marginTop: 16,
     },
     LoginButtonText: {
-        fontSize: 16
+        fontSize: 16,
+        
     },
     LoginContainer: {
         backgroundColor: '#ffffff',
