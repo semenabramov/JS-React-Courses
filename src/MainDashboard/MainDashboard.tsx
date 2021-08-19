@@ -55,7 +55,7 @@ const MainDashboard = ({ navigation }: any) => {
                     let counter = 0;
                     return (
                         user.img.map(function (item: any) {
-                            console.log(item)
+                            //console.log(item)
                             console.log(user.id * 100 + user.img.length - counter)
                             counter = counter + 1;
                             return (
