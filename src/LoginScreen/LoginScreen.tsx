@@ -20,6 +20,7 @@ import { StackRouter } from '@react-navigation/native';
 
 
 
+
 function LoginScreen({navigation}: any) {
 
     const dispatch = useDispatch();
@@ -27,27 +28,41 @@ function LoginScreen({navigation}: any) {
     const [login, setData] = useState('');
     const [password, setPassword] = useState('');
 
+    const [errors, setErrors] = useState(['']);
+
     const allUsers = useSelector((state)=>state.users.users)
 
+    let er = ['']
+
     const clickHandler = () =>{
+        er = []
         const data = {
             name: login,
             password: password,
         }
 
-        
-
         console.log(allUsers)
+        let flag = false
         allUsers.forEach(function(item: any){
             //console.log(item)
             //console.log(data)
             if((item.name == data.name) && (item.password == data.password)){
                 console.log('TRUE')
+                flag = true
                 dispatch(Login({...data,id: item.id}))
+                
             }else{
                 console.log('FALSE')
+                
             }
         })
+
+        if(!flag){
+            er = [...er,'The username or password is incorrect'] 
+            setErrors(er)
+            console.log(errors)
+        }
+        
     }
 
     
@@ -74,6 +89,7 @@ function LoginScreen({navigation}: any) {
 
                 <Text>Password</Text>
                 <TextInput
+                    secureTextEntry={true}
                     style={styles.Input}
                     placeholder="Enter password"
                     onChangeText={password => setPassword(password)}
@@ -98,6 +114,9 @@ function LoginScreen({navigation}: any) {
 
                 
             </View>
+            <View style={styles.Errors}>
+                <Text style={styles.ErrorsText}>{errors[0]}</Text>
+            </View>
 
 
         </SafeAreaView>
@@ -105,6 +124,13 @@ function LoginScreen({navigation}: any) {
 }
 
 const styles = StyleSheet.create({
+    Errors:{
+        
+    },
+    ErrorsText:{
+        color: 'red',
+        margin: 10,
+    },
     LoginButton: {
         backgroundColor: 'orange',
         width: '80%',

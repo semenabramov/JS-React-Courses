@@ -55,15 +55,20 @@ const MainDashboard = ({ navigation }: any) => {
                     let counter = 0;
                     return (
                         user.img.map(function (item: any) {
-                            
+                            //console.log(item)
+                            console.log(user.id * 100 + user.img.length - counter)
                             counter = counter + 1;
                             return (
 
                                 < View style={styles.onePicture} key={user.id * 100 + user.img.length - counter} >
                                     
-                                    <Text style={styles.UserName}>Pthoto by: {user.name}</Text>
+                                    <Text style={styles.UserName}>Photo by: {user.name}</Text>
                                     <Image style={styles.MainPhotos}
                                         source={{ uri: item }} />
+                                    
+                                    <View style={styles.CommentTab}>
+                                        <Text style={styles.Comment}>{user.comment[counter - 1]}</Text>
+                                    </View>
                                 </View>
                             )
 
@@ -99,6 +104,23 @@ const MainDashboard = ({ navigation }: any) => {
 }
 
 const styles = StyleSheet.create({
+    Like:{
+        width: 25,
+        height: 25,
+        margin: 5,
+    },
+    CommentTab:{
+        width: '100%',
+        //height: 40,
+        backgroundColor: '#ffffff',
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    Comment:{
+        margin: 5,
+        fontSize: 16,
+        width: 280,
+    },
     UserName: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -107,7 +129,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     onePicture: {
-        marginTop: 30,
+        //marginTop: 30,
         backgroundColor: '#ffffff',
     },
     MainPhotos: {

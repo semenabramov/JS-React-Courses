@@ -21,8 +21,8 @@ export default function MainStack() {
   //console.log(stateUsers.activeld)
   if (stateUsers.activeld == 0) {
     return (
-      <NavigationContainer>
-        <Stack.Navigator>
+      <NavigationContainer >
+        <Stack.Navigator screenOptions={{headerShown: false,}}>
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="Registration" component={Registration} />
           
@@ -32,7 +32,7 @@ export default function MainStack() {
   } else {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false,}}>
           
           <Stack.Screen name="Home" component={MainDashboard} />
           <Stack.Screen name="Profile" component={Profile} />

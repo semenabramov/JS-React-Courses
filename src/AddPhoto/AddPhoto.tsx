@@ -83,6 +83,7 @@ function AddPhoto({navigation}: any) {
         }
         console.log(data)
         dispatch(addImg(data))
+        navigation.goBack()
     }
     
     

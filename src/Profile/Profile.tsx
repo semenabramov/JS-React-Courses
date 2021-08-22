@@ -49,8 +49,8 @@ function Profile({navigation}: any) {
             <View style={styles.LogoContainer}>
                 <Text style={styles.LogoText}>NEWiNSTAGRAM</Text>
             </View>
-            <TouchableOpacity onPress={clickHandler} >
-                <Text>EXIT</Text>
+            <TouchableOpacity style={styles.ExitTab} onPress={clickHandler} >
+                <Text style={{fontSize: 24,fontWeight: 'bold',}}>EXIT</Text>
             </TouchableOpacity>
             <ScrollView style={styles.ScrollArea}>
 
@@ -68,12 +68,16 @@ function Profile({navigation}: any) {
                                 <TouchableOpacity onPress={(counter) => navigation.navigate('EditPhoto', toRoute)}>
                                     <Image style={{width: 40, height: 40, margin: 8}} source={{ uri: 'https://static.vecteezy.com/system/resources/previews/000/330/430/original/vector-pencil-line-black-icon.jpg'}} />
                                 </TouchableOpacity>   
-                                <Text style={styles.UserName}>Pthoto by: {userNow.name} - {counter}</Text>
+                                <Text style={styles.UserName}>Photo by: {userNow.name}</Text>
                             </View>
                             
                             <Image style={styles.MainPhotos}
                                 source={{ uri: item }} />
-                            <Text style={styles.UserName}>{userNow.comment[counter - 1]}</Text>
+                            <View style={styles.CommentTab}>
+                                <Text style={styles.Comment}>{userNow.comment[counter - 1]}</Text>
+                                <Image style={styles.Like} source={{ uri: 'http://cdn.onlinewebfonts.com/svg/img_165452.png' }} />
+                            </View>
+
                         </View>
                     )
                    
@@ -89,6 +93,30 @@ function Profile({navigation}: any) {
 }
 
 const styles = StyleSheet.create({
+    Like:{
+        width: 25,
+        height: 25,
+        margin: 5,
+    },
+    CommentTab:{
+        width: '100%',
+        //height: 40,
+        backgroundColor: '#ffffff',
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    Comment:{
+        margin: 5,
+        fontSize: 16,
+        width: 280,
+    },
+    ExitTab:{
+        width: '100%',
+        height: 40,
+        backgroundColor: 'orange',
+        alignItems: 'center',
+        padding: 3,
+    },
     UserName: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -97,7 +125,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     onePicture: {
-        marginTop: 30,
+        //marginTop: 30,
         backgroundColor: '#ffffff',
     },
     MainPhotos: {

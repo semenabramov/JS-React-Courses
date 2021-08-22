@@ -96,6 +96,7 @@ function EditPhoto({ navigation, route }: any) {
         }
         console.log(data)
         dispatch(addImg(data))
+        navigation.goBack()
     }
 
     const DeletePost = () =>{

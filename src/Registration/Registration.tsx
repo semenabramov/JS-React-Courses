@@ -59,11 +59,13 @@ function LoginScreen({navigation}: any) {
         if(flag){
             dispatch(createAccount(data))
             er = ['Successfully']
+            navigation.goBack()
         }else{
             er = [...er,'The user already exists'] 
             console.log(errors)
         }
         setErrors(er)
+        
     }
     
     
@@ -87,6 +89,7 @@ function LoginScreen({navigation}: any) {
 
                 <Text >Password</Text>
                 <TextInput
+                    secureTextEntry={true}
                     style={styles.Input}
                     placeholder="Enter password"
                     onChangeText={password => setPassword(password)}
