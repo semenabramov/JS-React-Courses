@@ -41,6 +41,17 @@ import { useDispatch } from 'react-redux';
 
 import MainStack from './src/navigation'
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import { PersistGate } from 'redux-persist/integration/react'
+
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+}
 
 
 let composeEnhancers = compose;
@@ -48,8 +59,11 @@ let composeEnhancers = compose;
 if(__DEV__){
   composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 }
-const store = createStore(rootReducer, composeEnhancers());
 
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+const store = createStore(persistedReducer, composeEnhancers());
+let persistor = persistStore(store)
 
 
 createAccount({name: 'sem', password: '123'})
@@ -71,7 +85,9 @@ const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <Provider store={store}>
-      <App0 />
+      <PersistGate loading={null} persistor={persistor}>
+        <App0 />
+      </PersistGate>
     </Provider>
     //<MainDashboard/>
   );
